@@ -14,7 +14,6 @@ function App() {
       <ConnectedRouter history={history}>
         <Root />
       </ConnectedRouter>
-      <Root />
     </Provider>
   );
 }
