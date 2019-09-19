@@ -12,6 +12,7 @@ function App() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
+        111
         <Root />
       </ConnectedRouter>
     </Provider>
