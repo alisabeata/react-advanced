@@ -36,6 +36,11 @@ export const SignUpForm = () => (
               name="email"
             />
           </label>
+          {props.errors.email && props.touched.email && (
+            <div style={{ color: 'red', fontSize: '11px' }}>
+              {props.errors.email}
+            </div>
+          )}
           <label>
             <p>Password</p>
             <input
@@ -46,12 +51,13 @@ export const SignUpForm = () => (
               name="password"
             />
           </label>
-          {props.errors.email && props.touched.email && (
-            <p>{props.errors.email}</p>
-          )}
           {props.errors.password && props.touched.password && (
-            <p>{props.errors.password}</p>
+            <div style={{ color: 'red', fontSize: '11px' }}>
+              {props.errors.password}
+            </div>
           )}
+          <br />
+          <br />
           <button type="submit">Submit</button>
         </form>
       )}
