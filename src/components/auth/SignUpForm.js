@@ -1,5 +1,16 @@
 import React from 'react';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+const SignUpSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+  password: Yup.string()
+    .min(2, 'Password is too short')
+    .max(50, 'Password is too long')
+    .required('Required')
+});
 
 export const SignUpForm = () => (
   <div>
@@ -12,6 +23,7 @@ export const SignUpForm = () => (
           actions.setSubmitting(false);
         }, 1000);
       }}
+      validationSchema={SignUpSchema}
       render={props => (
         <form onSubmit={props.handleSubmit}>
           <label>
@@ -34,6 +46,12 @@ export const SignUpForm = () => (
               name="password"
             />
           </label>
+          {props.errors.email && props.touched.email && (
+            <p>{props.errors.email}</p>
+          )}
+          {props.errors.password && props.touched.password && (
+            <p>{props.errors.password}</p>
+          )}
           <button type="submit">Submit</button>
         </form>
       )}
