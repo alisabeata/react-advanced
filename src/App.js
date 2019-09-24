@@ -4,6 +4,7 @@ import configureStore from './redux';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import history from './history';
+import './config'
 
 const store = configureStore({});
 
