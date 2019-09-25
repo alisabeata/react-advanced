@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { SignInForm } from '../auth/SignInForm';
 import { SignUpForm } from '../auth/SignUpForm';
 import { Route, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signUp } from '../../ducks/auth';
 
-export class AuthPage extends Component {
+class AuthPageComponent extends Component {
   handleSignIn = val => console.log('------', val);
-  handleSignUp = val => console.log('------', val);
+  handleSignUp = ({ email, password }) => this.props.signUp(email, password);
 
   render() {
     return (
@@ -29,3 +31,8 @@ export class AuthPage extends Component {
     );
   }
 }
+
+export const AuthPage = connect(
+  null,
+  { signUp }
+)(AuthPageComponent);
