@@ -8,7 +8,7 @@ export const SignInForm = () => (
       initialValues={{ email: '' }}
       onSubmit={(values, actions) => {
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
+          //alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
         }, 1000);
       }}

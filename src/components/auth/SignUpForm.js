@@ -1,27 +1,29 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
+import { signUp } from '../../ducks/auth';
 
 const SignUpSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email')
     .required('Required'),
   password: Yup.string()
-    .min(2, 'Password is too short')
+    .min(6, 'Password is too short')
     .max(50, 'Password is too long')
     .required('Required')
 });
 
-export const SignUpForm = () => (
+const SignUpFormComponent = ({ signUp }) => (
   <div>
     <h2>Sign Up Form</h2>
     <Formik
       initialValues={{ email: '' }}
       onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }, 1000);
+        const { email, password } = values;
+
+        signUp(email, password);
+        actions.setSubmitting(false);
       }}
       validationSchema={SignUpSchema}
       render={props => (
@@ -64,3 +66,8 @@ export const SignUpForm = () => (
     />
   </div>
 );
+
+export const SignUpForm = connect(
+  null,
+  { signUp }
+)(SignUpFormComponent);
