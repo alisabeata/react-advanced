@@ -3,15 +3,11 @@ import reducer from './reducer';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router';
+import createSagaMiddleware from 'redux-saga';
 import history from '../history';
+import { saga } from '../ducks/otherForm';
 
-// const enhancer = applyMiddleware(routerMiddleware(history));
-
-// const store = createStore(reducer, enhancer);
-// console.log(store);
-// window.store = store;
-
-// export default store;
+const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(preloadedState) {
   const store = createStore(
@@ -21,12 +17,17 @@ export default function configureStore(preloadedState) {
       applyMiddleware(
         routerMiddleware(history), // for dispatching history actions
         // ... other middlewares ...
+        sagaMiddleware,
         thunk,
         logger
       ),
       window.devToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
     )
   );
+
+  sagaMiddleware.run(saga);
+
+  window.store = store;
 
   return store;
 }

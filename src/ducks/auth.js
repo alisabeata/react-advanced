@@ -34,7 +34,6 @@ export default function reducer(state = initialState, action) {
 
 // action creator (with thunk)
 export function signUp(email, password) {
-  console.log(1)
   return dispatch => {
     dispatch({
       type: SIGN_UP_REQUEST
@@ -57,3 +56,12 @@ export function signUp(email, password) {
       );
   };
 }
+
+// check if login
+// firebase.auth().onAuthStateChanged(user => {
+//   const store = require('../redux').default;
+
+//   store.dispatch({
+    
+//   })
+// })
