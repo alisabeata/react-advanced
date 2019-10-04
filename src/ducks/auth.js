@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import { appName } from '../config';
 import { all, take, takeEvery, call, put, cps } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 
 const initialState = {
   user: null,
@@ -137,6 +138,7 @@ export const signOutSaga = function*() {
     yield put({
       type: SIGN_OUT_SUCCESS
     });
+    yield put(push('/auth/signin'));
   } catch (error) {}
 };
 
