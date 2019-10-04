@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import history from '../history';
-import { saga } from '../ducks/otherForm';
+import rootSaga from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -25,7 +25,7 @@ export default function configureStore(preloadedState) {
     )
   );
 
-  sagaMiddleware.run(saga);
+  sagaMiddleware.run(rootSaga);
 
   window.store = store;
 
