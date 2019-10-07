@@ -17,6 +17,9 @@ export const SIGN_UP_ERROR = `${appName}/${moduleName}/SIGN_UP_ERROR`;
 export const SIGN_OUT_REQUEST = `${appName}/${moduleName}/SIGN_OUT_REQUEST`;
 export const SIGN_OUT_SUCCESS = `${appName}/${moduleName}/SIGN_OUT_SUCCESS`;
 export const SIGN_OUT_ERROR = `${appName}/${moduleName}/SIGN_OUT_ERROR`;
+export const SIGN_IN_REQUEST = `${appName}/${moduleName}/SIGN_IN_REQUEST`;
+export const SIGN_IN_SUCCESS = `${appName}/${moduleName}/SIGN_IN_SUCCESS`;
+export const SIGN_IN_ERROR = `${appName}/${moduleName}/SIGN_IN_ERROR`;
 
 // reducer
 export default function reducer(state = initialState, action) {
@@ -89,6 +92,13 @@ export function signOut(email, password) {
   };
 }
 
+export function signIn(email, password) {
+  return {
+    type: SIGN_IN_REQUEST,
+    payload: { email, password }
+  };
+}
+
 // sagas
 export const signUpSaga = function*() {
   const auth = firebase.auth();
@@ -142,10 +152,23 @@ export const signOutSaga = function*() {
   } catch (error) {}
 };
 
+export const signInSaga = function*() {
+  const auth = firebase.auth();
+
+  try {
+    yield call([auth, auth.signInWithEmailAndPassword]);
+    yield put({
+      type: SIGN_IN_SUCCESS
+    });
+    yield put(push('/admin'));
+  } catch (error) {}
+};
+
 export const saga = function*() {
   yield all([
     signUpSaga(),
     watchStatusChange(),
-    takeEvery(SIGN_OUT_REQUEST, signOutSaga)
+    takeEvery(SIGN_OUT_REQUEST, signOutSaga),
+    takeEvery(SIGN_IN_REQUEST, signInSaga)
   ]);
 };
