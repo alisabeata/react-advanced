@@ -1,7 +1,7 @@
-import { appName } from '../config';
-import { Record, List } from 'immutable';
-import { put, call, takeEvery } from 'redux-saga/effects';
-import { generateId } from './utils';
+import { appName } from "../config";
+import { Record, List } from "immutable";
+import { put, call, takeEvery } from "redux-saga/effects";
+import { generateId } from "./utils";
 
 const initialState = {
   entities: new List([])
@@ -14,7 +14,7 @@ const PersonRecord = Record({
 });
 
 // const
-export const moduleName = 'auth';
+export const moduleName = "auth";
 export const ADD_PERSON_REQUEST = `${appName}/${moduleName}/ADD_PERSON_REQUEST`;
 export const ADD_PERSON = `${appName}/${moduleName}/ADD_PERSON`;
 
@@ -24,7 +24,7 @@ export default function reducer(state = initialState, action) {
 
   switch (type) {
     case ADD_PERSON:
-      return state.update('entities', entities =>
+      return state.update("entities", entities =>
         entities.push(new PersonRecord(payload))
       );
 
